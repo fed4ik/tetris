@@ -1,0 +1,24 @@
+plugins {
+    id 'application'
+    id 'java'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // JavaFX modules
+    implementation "org.openjfx:javafx-controls:21"
+    implementation "org.openjfx:javafx-fxml:21"
+    runtimeOnly "org.openjfx:javafx-graphics:21"
+}
+
+application {
+    mainClass = 'tetris.TetrisGame'
+    // Pass module path for JavaFX at runtime
+    applicationDefaultJvmArgs = [
+        '--module-path', "${configurations.runtimeOnly.asPath}",
+        '--add-modules', 'javafx.controls,javafx.fxml'
+    ]
+}
