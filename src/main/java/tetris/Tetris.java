@@ -42,12 +42,19 @@ public class Tetris extends JPanel implements ActionListener {
      */
     public Tetris() {
         setFocusable(true);
-        curPiece = new Shape() { }; // Anonymous implementation or use proper initialization
+        curPiece = new Shape(); // Initialize with default Shape
         timer = new Timer(400, this);
         timer.start();
         board = new int[BOARD_HEIGHT * BOARD_WIDTH];
         addKeyListener(new TAdapter());
         clearBoard();
+        // Start with a random piece for the first piece - ensure it's actually placed
+        newPiece();
+        // Force the first piece to be placed properly
+        if (!tryMove(curPiece, BOARD_WIDTH / 2 + 1, 0)) {
+            // If it can't start at center, try at different position
+            tryMove(curPiece, BOARD_WIDTH / 2, 0);
+        }
     }
 
     /**
@@ -104,7 +111,6 @@ public class Tetris extends JPanel implements ActionListener {
         curX = BOARD_WIDTH / 2 + 1;
         curY = 0;
         if (!tryMove(curPiece, curX, curY)) {
-            curPiece.setShape(Shape.Tetrominoes.NoShape);
             isStarted = false;
             timer.stop();
         }
@@ -193,7 +199,7 @@ public class Tetris extends JPanel implements ActionListener {
         }
 
         // draw current piece
-        if (curPiece.getShape() != Shape.Tetrominoes.NoShape) {
+        if (curPiece.getShape() != null) {
             for (int i = 0; i < 4; ++i) {
                 int x = curX + curPiece.x(i);
                 int y = curY + curPiece.y(i);
@@ -243,7 +249,7 @@ public class Tetris extends JPanel implements ActionListener {
     class TAdapter extends KeyAdapter {
         @Override
         public void keyPressed(KeyEvent e) {
-            if (!isStarted || curPiece.getShape() == Shape.Tetrominoes.NoShape) {
+            if (!isStarted || curPiece.getShape() == null) {
                 return;
             }
             int keycode = e.getKeyCode();
