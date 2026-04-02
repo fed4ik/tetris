@@ -42,7 +42,7 @@ public class Tetris extends JPanel implements ActionListener {
      */
     public Tetris() {
         setFocusable(true);
-        curPiece = new Shape();
+        curPiece = new Shape() { }; // Anonymous implementation or use proper initialization
         timer = new Timer(400, this);
         timer.start();
         board = new int[BOARD_HEIGHT * BOARD_WIDTH];
