@@ -13,8 +13,9 @@ import java.util.Random;
  * Main Tetris game class implementing the core game logic
  */
 public class Tetris extends JPanel implements ActionListener {
-    private static final int BOARD_WIDTH = 10;
-    private static final int BOARD_HEIGHT = 22;
+    private static final int BOARD_WIDTH = 8;
+    private static final int BOARD_HEIGHT = 14;  // Consistent 8x14 proportions
+    private static final int SQUARE_SIZE = 20;  // Standard square size
 
     private final Timer timer;
     private boolean isFallingFinished = false;
@@ -111,8 +112,12 @@ public class Tetris extends JPanel implements ActionListener {
         curX = BOARD_WIDTH / 2 + 1;
         curY = 0;
         if (!tryMove(curPiece, curX, curY)) {
-            isStarted = false;
-            timer.stop();
+            // Handle case where piece cannot be placed (specifically LineShape issue)
+            // Try placing at a different starting position with offset
+            if (!tryMove(curPiece, curX, curY + 2)) {
+                isStarted = false;
+                timer.stop();
+            }
         }
         isFallingFinished = false;
     }

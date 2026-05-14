@@ -23,11 +23,11 @@ java {
 jar {
     manifest {
         attributes(
-            'Main-Class': 'tetris.Tetris'
+            'Main-Class': 'tetris.javafx.JavaFXMain'
         )
     }
 }
 
 application {
-    mainClass = 'tetris.Tetris'
+    mainClass = 'tetris.javafx.JavaFXMain'
 }

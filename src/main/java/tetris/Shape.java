@@ -6,13 +6,13 @@ public class Shape {
     private int[] coords = new int[4 * 2]; // x,y for 4 blocks
 
     private static final int[][][] coordsTable = {
-//        {{0,-1}, {0,0}, {-1,0}, {-1,1}}, // ZShape
-//        {{0,-1}, {0,0}, {1,0}, {1,1}}, // SShape
+        {{0,-1}, {0,0}, {-1,0}, {-1,1}}, // ZShape
+        {{0,-1}, {0,0}, {1,0}, {1,1}}, // SShape
         {{0,-1}, {0,0}, {0,1}, {0,2}}, // LineShape
         {{-1,0}, {0,0}, {1,0}, {0,1}}, // TShape
         {{0,0}, {1,0}, {0,1}, {1,1}}, // SquareShape
-//        {{-1,-1}, {0,-1}, {0,0}, {0,1}}, // LShape
-//        {{1,-1}, {0,-1}, {0,0}, {0,1}} // MirroredLShape
+        {{-1,-1}, {0,-1}, {0,0}, {0,1}}, // LShape
+        {{1,-1}, {0,-1}, {0,0}, {0,1}} // MirroredLShape
     };
 
     public Shape() {
@@ -30,7 +30,7 @@ public class Shape {
 
     public void setRandomShape() {
         // Generate a random index for valid shapes (0-6)
-        int randomIndex = (int)(Math.random() * 3);
+        int randomIndex = (int)(Math.random() * 7);
         Tetrominoes[] values = Tetrominoes.values();
         setShape(values[randomIndex]);
     }
